@@ -1,5 +1,5 @@
 require('dotenv').config();
-const db = require('./DataBase/conexao_db');
+const db = require('./DataBase/consultaClientes_db');
 const express = require("express")
 const app = express();
 const port = 2505;

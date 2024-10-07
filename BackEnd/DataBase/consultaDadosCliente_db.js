@@ -1,19 +1,30 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database('/home/gabriel/node.db', (err) => {
+//PC da empresa utilizar esse caminho de database!
+// const db = new sqlite3.Database('/home/gabriel/node.db', (err) => {
+//     if (err) {
+//         console.error(err.message);
+//     }
+//     console.log('Conectado ao banco de dados SQLite.');
+// });
+
+//Notbook utilizar esse caminho de database!
+const db = new sqlite3.Database('/home/gabriel/Desktop/node.db', (err) => {
     if (err) {
         console.error(err.message);
     }
     console.log('Conectado ao banco de dados SQLite.');
 });
 
+
+
 const createTable = () => {
-    db.run(`CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        idade INTEGER,
-        telefone INTEGER
-    )`, (err) => {
+    db.run(`CREATE TABLE IF NOT EXISTS Clientes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL	
+)`, (err) => {
         if (err) {
             console.error('Erro ao criar tabela:', err.message);
         }
