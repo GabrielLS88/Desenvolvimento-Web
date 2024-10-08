@@ -9,7 +9,7 @@ const sqlite3 = require('sqlite3').verbose();
 // });
 
 //Notbook utilizar esse caminho de database!
-const db = new sqlite3.Database('/home/gabriel/Desktop/node.db', (err) => {
+const db = new sqlite3.Database('/home/gabriel/Desktop/Clientes.db', (err) => {
     if (err) {
         console.error(err.message);
     }
@@ -19,7 +19,7 @@ const db = new sqlite3.Database('/home/gabriel/Desktop/node.db', (err) => {
 
 
 const createTable = () => {
-    db.run(`CREATE TABLE IF NOT EXISTS Clientes (
+    db.run(`CREATE TABLE IF NOT EXISTS Atendentes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
     email TEXT NOT NULL,
@@ -32,7 +32,7 @@ const createTable = () => {
 };
 
 const insertUser = (name, idade, telefone) => {
-    const stmt = db.prepare(`INSERT INTO users (name, idade, telefone) VALUES (?, ?, ?)`);
+    const stmt = db.prepare(`INSERT INTO Atendentes (name, idade, telefone) VALUES (?, ?, ?)`);
     stmt.run(name, idade, telefone, (err) => {
         if (err) {
             console.error('Erro ao inserir usuário:', err.message);
@@ -42,7 +42,7 @@ const insertUser = (name, idade, telefone) => {
 };
 
 const getUsers = (callback) => {
-    db.all(`SELECT * FROM users`, [], (err, rows) => {
+    db.all(`SELECT * FROM Atendentes`, [], (err, rows) => {
         if (err) {
             callback(err, null);
         } else {
@@ -52,7 +52,7 @@ const getUsers = (callback) => {
 };
 
 const deletUser = (id) => {
-    db.run(`DELETE FROM users WHERE name = ?`, [id], function(err) {
+    db.run(`DELETE FROM Atendentes WHERE name = ?`, [id], function(err) {
         if (err) {
             console.error('Erro ao deletar usuário:', err.message);
         } else if (this.changes === 0) {

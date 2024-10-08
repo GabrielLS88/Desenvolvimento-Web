@@ -1,5 +1,7 @@
 require('dotenv').config();
-const db = require('./DataBase/consultaClientes_db');
+const db = require('./DataBase/consultaDadosCliente_db');
+const login = require('./DataBase/login_db')
+const registro = require('./DataBase/register_db')
 const express = require("express")
 const app = express();
 const port = 2505;
@@ -35,8 +37,51 @@ app.get('/users', async (req,res) => {
     }
 })
 
-app.get('/users', async (req,res) => {
-    const { id } = req.params;
+app.post('/login', async (req,res) => {
+    const {email,password} = req.body;
+    if(!email || !password){ return res.status(400).json({message: 'E necessario email e senha para consulta'})}
+    try{
+        login.getUserLogin(email,password, (err,login)=>{
+            if(err){
+                console.error(err);
+                return res.status(500).json({error:err.message});
+            }
+            if(!login){
+                return res.json({message: 'Credenciais invalidas', login})
+            }
+            res.json({message:'Login sucedido',login})
+        })
+    }catch{
+        res.status(500).json({error:error.message})
+    }
+})
+
+
+app.post('/register', async (req, res) => {
+    const { nome, email, password } = req.body;
+
+    // Verifica se os campos obrigatórios foram fornecidos
+    if (!nome || !email || !password) {
+        return res.status(400).json({ message: 'É necessário um nome, email e senha para registrar' });
+    }
+
+    try {
+        // Aguarda a inserção do usuário e captura o resultado
+        const retorno = await registro.insertUser(nome, email, password);
+        res.status(200).json({ message: retorno });
+    } catch (error) {
+        console.error('Erro ao registrar usuário:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/blipconection', (req,res) => {
+    const dados = req.body
+    try{
+        console.log(dados);
+    }catch{
+        res.status(500).json({error:error.message});
+    }
 })
 
 app.listen(port, () => {

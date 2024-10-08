@@ -1,2 +1,19 @@
-GET http://localhost:2505/users
+POST http://localhost:2505/login
 token: wC4gGTVdPL5SEL80ld9UDdfaG92sCKpKEz91uVzAAi9SH5D51s5DjEDsx04ekxzV1
+Content-Type: application/json
+
+{
+    "email":"lopes.biel2588@gmail.com",
+    "password":"Admin"
+}
+
+###
+POST http://localhost:2505/register
+token: wC4gGTVdPL5SEL80ld9UDdfaG92sCKpKEz91uVzAAi9SH5D51s5DjEDsx04ekxzV1
+Content-Type: application/json
+
+{
+    "nome": "Marcos",
+    "email": "marcos.vinicius@telek.com",
+    "password": "desenvolovedor"
+}

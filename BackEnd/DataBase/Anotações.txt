@@ -1,0 +1,18 @@
+Comando para criação das tabelas dentro do DATABASE 
+
+CREATE TABLE Atendentes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    senha TEXT NOT NULL
+);
+
+CREATE TABLE AtendimentosRealizados (
+    id_tickets INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_atendente INTEGER,
+    numero_ticket INTEGER,
+    status TEXT,
+    data_abertura DATE,
+    data_encerramento DATE,
+    FOREIGN KEY (id_atendente) REFERENCES Atendentes(id)
+);
